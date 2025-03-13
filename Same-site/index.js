@@ -5,7 +5,7 @@ const app = express();
 
 // Allow requests from your frontend (replace the ngrok URL if it changes)
 app.use(cors({
-    origin: ["https://cookie-si4u.vercel.app/", "https://niloy-is-testing.github.io"], 
+    origin: ["https://cookie-si4u.vercel.app", "https://niloy-is-testing.github.io"], 
     credentials: true // Allow sending cookies
 }));
 
