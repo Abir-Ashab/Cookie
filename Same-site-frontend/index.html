@@ -18,7 +18,7 @@
 
         btn.addEventListener("click", e => {
             fetch("https://cookie-rouge.vercel.app/login", {
-                method: "POST",
+                method: "GET",
                 credentials: "include" // Ensures cookies are sent
             }).then(a => a.text()).then(console.log);
         });
