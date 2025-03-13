@@ -9,7 +9,7 @@ app.use(cors({
     credentials: true // Allow sending cookies
 }));
 
-app.post("/login", (req, res) => {
+app.get("/login", (req, res) => {
     // const cookie = "user=hussein; samesite=strict; secure";
     // const cookie = "user=hussein; samesite=lax; secure";
     //const cookie = "user=hussein; samesite=none; secure";
