@@ -1,7 +1,3 @@
-Certainly! Below is the updated README with the explanation of all four cookie flags included:
-
----
-
 # Cookie Handling Demo
 
 This project demonstrates handling cookies and managing cross-origin requests between a frontend and a backend using cookies.
