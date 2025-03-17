@@ -3,10 +3,17 @@ const cors = require("cors");
 
 const app = express();
 
-// Allow requests from your frontend
+// Allow requests from multiple origins dynamically
+const allowedOrigins = ["https://cookie-si4u.vercel.app", "https://niloy-is-testing.github.io"];
 app.use(cors({
-    origin: ["https://cookie-si4u.vercel.app/", "https://niloy-is-testing.github.io"], 
-    credentials: true // Allow sending cookies
+    origin: function (origin, callback) {
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            callback(new Error("Not allowed by CORS"));
+        }
+    },
+    credentials: true
 }));
 
 app.post("/login", (req, res) => {
@@ -26,6 +33,8 @@ app.post("/login", (req, res) => {
     }
 
     res.setHeader("set-cookie", [cookie]);
+    res.setHeader("Access-Control-Allow-Origin", req.headers.origin || "*"); // Allow dynamic origin
+    res.setHeader("Access-Control-Allow-Credentials", "true"); // Allow credentials
     res.send(`Cookie set: ${cookie}`);
 });
 
