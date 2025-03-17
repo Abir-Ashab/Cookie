@@ -3,25 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Cookie Tester</title>
 </head>
 <body>
     <img src="https://cookie-rouge.vercel.app/img">
-    <button id="btn">Login</button>
+    <button onclick="setCookie('default')">Default Cookie</button>
+    <button onclick="setCookie('strict')">SameSite=Strict</button>
+    <button onclick="setCookie('lax')">SameSite=Lax</button>
+    <button onclick="setCookie('none')">SameSite=None</button>
 
     <script>
-        const btn = document.getElementById("btn");
-
-        if (document.cookie) {
-            btn.style.display = "none";
+        function setCookie(type) {
+            fetch(`https://cookie-rouge.vercel.app/login?type=${type}`, {
+                method: "POST",
+                credentials: "include"
+            })
+            .then(res => res.text())
+            .then(console.log);
         }
-
-        btn.addEventListener("click", e => {
-            fetch("https://cookie-rouge.vercel.app/login", {
-                method: "GET",
-                credentials: "include" // Ensures cookies are sent
-            }).then(a => a.text()).then(console.log);
-        });
     </script>
 </body>
 </html>
