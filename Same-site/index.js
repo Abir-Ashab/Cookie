@@ -3,19 +3,30 @@ const cors = require("cors");
 
 const app = express();
 
-// Allow requests from your frontend (replace the ngrok URL if it changes)
+// Allow requests from your frontend
 app.use(cors({
-    origin: ["https://cookie-si4u.vercel.app", "https://niloy-is-testing.github.io"], 
+    origin: ["https://cookie-si4u.vercel.app/", "https://niloy-is-testing.github.io"], 
     credentials: true // Allow sending cookies
 }));
 
-app.get("/login", (req, res) => {
-    // const cookie = "user=hussein; samesite=strict; secure";
-    // const cookie = "user=hussein; samesite=lax; secure";
-    const cookie = "user=hussein; samesite=none; secure";
-    // const cookie = "user=hussein;";
+app.post("/login", (req, res) => {
+    const cookieType = req.query.type; // Get cookie type from query parameter
+    let cookie = "user=hussein;";
+
+    switch (cookieType) {
+        case "strict":
+            cookie = "user=hussein; samesite=strict; secure";
+            break;
+        case "lax":
+            cookie = "user=hussein; samesite=lax; secure";
+            break;
+        case "none":
+            cookie = "user=hussein; samesite=none; secure";
+            break;
+    }
+
     res.setHeader("set-cookie", [cookie]);
-    res.send("ok");
+    res.send(`Cookie set: ${cookie}`);
 });
 
 app.get("/img", (req, res) => {
@@ -24,7 +35,6 @@ app.get("/img", (req, res) => {
         res.sendFile(`${__dirname}/cookie.png`);
     } else {
         res.sendStatus(403);
-        res.end();
     }
 });
 
